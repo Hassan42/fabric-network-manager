@@ -1,0 +1,7 @@
+version: '3.7'
+name: 'cas'
+networks:
+  test:
+    name: fabric_test_ca
+
+services:

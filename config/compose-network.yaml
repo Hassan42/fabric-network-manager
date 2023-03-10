@@ -1,0 +1,7 @@
+version: '3.7'
+name: 'network'
+networks:
+  test:
+    name: fabric_test
+
+services:
