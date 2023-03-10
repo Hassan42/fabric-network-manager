@@ -15,3 +15,5 @@ benchmarks/graphs
 network
 network.yaml
 
+#others
+.DS_Store 
