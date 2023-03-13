@@ -342,7 +342,7 @@ const enrollBash = async (ca, credential, enrollmentPath, enrollmentProfile = "c
       args.push( "--enrollment.profile", "tls");
     }
   
-    const fabricCaClientBin = path.resolve("binaries", "fabric-ca-client");
+    const fabricCaClientBin = path.resolve("bin", "fabric-ca-client");
   
     const enrollment = execSync(`${fabricCaClientBin} ${args.join(" ")}`, {stdio : 'pipe' });
   
@@ -408,7 +408,7 @@ const registerBash = async (ca, credential, type=undefined) => {
       args.push("--id.type", type);
     }
   
-    const fabricCaClientBin = path.resolve("binaries", "fabric-ca-client");
+    const fabricCaClientBin = path.resolve("bin", "fabric-ca-client");
   
     const register = execSync(`${fabricCaClientBin} ${args.join(" ")}`, {stdio : 'pipe' });
   
@@ -439,7 +439,7 @@ const dockerUp = (dockerFile) => {
 }
   
 const configtx = (profile, outputPath, channelId) => {
-    const configtxBin = path.resolve("binaries", "configtxgen");
+    const configtxBin = path.resolve("bin", "configtxgen");
     const networkConfigDir = path.resolve("network", "config");  
     const args = ["-profile", profile, "-outputBlock", outputPath, "-channelID", channelId];
     const configtxOut = execSync(`${configtxBin} ${args.join(" ")}`, {cwd: networkConfigDir, stdio : 'pipe'});

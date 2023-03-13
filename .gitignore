@@ -15,6 +15,9 @@ benchmarks/graphs
 network
 network.yaml
 connection.yaml
+bin
+install-fabric.sh
+
 
 #others
-.DS_Store 
+.DS_Store
