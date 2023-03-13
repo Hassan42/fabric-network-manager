@@ -450,6 +450,73 @@ const delay = (delayInms) => {
     return new Promise(resolve => setTimeout(resolve, delayInms));
 }
 
+const writeConnectionFile = (networkPath) => {
+
+  const networkConf = readConf(networkPath);
+  const organizations = networkConf.organizations;
+  const peers = networkConf.peers;
+  const cas = networkConf.certificateAuthorities;
+
+  const connectionOrginizations = {};
+  const connectionPeers = {};
+  const connectionCas = {};
+
+  Object.keys(organizations).forEach(organizationKey => {
+    const orginization = organizations[organizationKey];
+
+    if('peers' in orginization){
+      orginization.peers.forEach((peerId) => {
+        const peer = peers[peerId];
+        const peerUrl = new URL(peer.url);
+        connectionPeers[peerId] = {
+          "url": "grpcs://" + peerUrl.host,
+          "tlsCACerts": {"path":path.resolve("network", organizationKey, "Peers", peerId, "tls", "tlscacerts", "tls-ca-cert.pem")},
+           "grpcOptions":{
+            "ssl-target-name-override": peer.name,
+            "hostnameOverride": peer.name}
+        }
+      })
+    }
+
+    if('certificateAuthorities' in orginization){
+      orginization.certificateAuthorities.forEach((caId) => {
+
+        const ca = cas[caId];
+        const caCert = fs.readFileSync(path.resolve("network", organizationKey, "Cas", caId, "tls-cert.pem"), "utf8");
+        connectionCas[caId] = {
+          "url": ca.url,
+          "caName": ca.caName,
+          "tlsCACerts": {"pem":caCert},
+          "httpOptions": {"verify": false}
+        }
+       
+      })
+    }
+
+
+    connectionOrginizations[organizationKey] = {
+      "mspid": orginization.mspid,
+      "peers": orginization.peers || [],
+      "certificateAuthorities": orginization.certificateAuthorities
+    }
+
+  })
+
+  const connectionFile = {
+    "name": "test-network",
+    "version": "1.0.0",
+    "organizations": connectionOrginizations,
+    "peers": connectionPeers,
+    "certificateAuthorities": connectionCas,
+  }
+
+  WriteYaml.sync("connection.yaml", connectionFile);
+
+  return connectionFile;
+
+}
+
+
 exports.writeNetworkFile = writeNetworkFile;
 exports.readConf = readConf;
 exports.createDirectory = createDirectory;
@@ -462,3 +529,4 @@ exports.checkEndpoint = checkEndpoint;
 exports.dockerUp = dockerUp;
 exports.configtx = configtx;
 exports.delay = delay;
+exports.writeConnectionFile = writeConnectionFile;
