@@ -714,7 +714,7 @@ async function deployChainCode(cb){
 
 
 
-var pipeline = series(dockerDown, initNetworkStructure, caDockerUp, setupOrgMsp, enrollCaAdmin, 
+var pipeline = series(initNetworkStructure, dockerDown, caDockerUp, setupOrgMsp, enrollCaAdmin, 
   parallel(regsiterEnrollPeers, regsiterEnrollOrderers, 
       regsiterEnrollAdmins),networkDockerUp, generateGensisBlock, joinChannelOrderers, joinChannelPeers);
 
@@ -723,7 +723,7 @@ if(options.deployChaincode){
 }
 
 if(options.stopNetwork){
-  pipeline = parallel(dockerDown, initNetworkStructure);
+  pipeline = parallel(initNetworkStructure, dockerDown);
 }
 
 exports.default = pipeline;
