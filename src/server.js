@@ -1,4 +1,4 @@
-const {execSync} = require('child_process');
+const {execSync, exec} = require('child_process');
 const express = require('express');
 const path = require('path');
 const {writeNetworkFile, writeConnectionFile} = require("./utils")

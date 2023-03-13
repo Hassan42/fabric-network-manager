@@ -472,7 +472,7 @@ async function networkDockerUp(cb){
 
 async function joinChannelOrderers(cb){
 
-    const osnadminBin = path.resolve("binaries", "osnadmin");
+    const osnadminBin = path.resolve("bin", "osnadmin");
     const channelName = "channel1";
     const blockPath = path.resolve("network", "artifact", "genesis_block.pb");
   
@@ -511,7 +511,7 @@ async function joinChannelOrderers(cb){
   
 async function joinChannelPeers(cb){
   
-    const peerBin = path.resolve("binaries", "peer");
+    const peerBin = path.resolve("bin", "peer");
   
     const networkConf = readConf("network.yaml");
   
@@ -559,7 +559,7 @@ async function joinChannelPeers(cb){
 
 async function packageChainCode(cb){
 
-    const peerBin = path.resolve("binaries", "peer");
+    const peerBin = path.resolve("bin", "peer");
   
     const networkConf = readConf("network.yaml");
   
@@ -597,7 +597,7 @@ async function packageChainCode(cb){
 
 async function deployChainCode(cb){
 
-    const peerBin = path.resolve("binaries", "peer");
+    const peerBin = path.resolve("bin", "peer");
   
     const networkConf = readConf("network.yaml");
   
