@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "187d9c00-d20a-45d1-869e-288ae7f29ebb",
+		"name": "fabric-gateway-network",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12773646"
+	},
+	"item": [
+		{
+			"name": "start network",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"participants\": [\n        \"org1\", \"org2\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/startNetwork",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"startNetwork"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deploy chaincode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ccs\": [\"chaincode-accept_order\", \"chaincode-cancel_order\", \"chaincode-choreographyregistry\",\n    \"chaincode-decline_order\", \"chaincode-order\", \"chaincode-parcel\", \"chaincode-send_order\",\n    \"chaincode-state_observer\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/deployCC",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"deployCC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "connection file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/connectionFile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"connectionFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stopNetwork",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/stopNetwork",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"stopNetwork"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
