@@ -263,7 +263,7 @@ const initOrderer = (orderer) => {
       const ordereradminPort = ordererPort + 2;
       const ordererOrg = orderer.org;
       const ordererMspId = orderer.mspid;
-      const orderPath = path.resolve("network", ordererOrg, "orderers", ordererName);
+      const orderPath = path.resolve("network", ordererOrg, "Orderers", ordererName);
   
       const tlsCertPath = "/etc/hyperledger/fabric/tls/signcerts/cert.pem";
       const tlsKeyPath = "/etc/hyperledger/fabric/tls/keystore/key.pem";
