@@ -21,7 +21,9 @@ if(options.deployChaincode){
     options["packagePath"] = path.resolve("network", "artifact", `${options["chaincodeLabel"]}.tar.gz`);}
 
 
-function buildNetwork(cb){
+
+
+function initNetworkStructure(cb){
 
     fs.rmSync("network", { recursive: true, force: true });
   
@@ -712,12 +714,16 @@ async function deployChainCode(cb){
 
 
 
-var pipeline = series(dockerDown, buildNetwork, caDockerUp, setupOrgMsp, enrollCaAdmin, 
-        regsiterEnrollPeers, regsiterEnrollOrderers, 
-      regsiterEnrollAdmins,networkDockerUp, generateGensisBlock, joinChannelOrderers, joinChannelPeers);
+var pipeline = series(dockerDown, initNetworkStructure, caDockerUp, setupOrgMsp, enrollCaAdmin, 
+  parallel(regsiterEnrollPeers, regsiterEnrollOrderers, 
+      regsiterEnrollAdmins),networkDockerUp, generateGensisBlock, joinChannelOrderers, joinChannelPeers);
 
 if(options.deployChaincode){
     pipeline = series(packageChainCode, deployChainCode);
+}
+
+if(options.stopNetwork){
+  pipeline = parallel(dockerDown, initNetworkStructure);
 }
 
 exports.default = pipeline;

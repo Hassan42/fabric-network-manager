@@ -503,11 +503,13 @@ const writeConnectionFile = (networkPath) => {
   })
 
   const connectionFile = {
+    "networkConfiguration":{
     "name": "test-network",
     "version": "1.0.0",
     "organizations": connectionOrginizations,
     "peers": connectionPeers,
     "certificateAuthorities": connectionCas,
+    }
   }
 
   WriteYaml.sync("connection.yaml", connectionFile);
