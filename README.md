@@ -33,3 +33,9 @@ Retreive connection file:
 ```sh
 GET: localhost:3000/connectionFile
 ```
+
+## TODOs
+
+- Refactor Gulp file
+- Add more functionalities: Add/Remove Org, Modify Chaincode, etc
+
